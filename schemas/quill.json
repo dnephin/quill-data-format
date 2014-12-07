@@ -1,31 +1,35 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Statement",
-    "type": "object",
-    "description": "A statement is a document that describes a policy or proposal. It is the root of the comment graph. Each statement object is a single revision of a statement.",
-    "properties": {
-        "label": { "$ref": "#/definitions/label" },
-        "version": { "$ref": "#/definitions/version" },
-        "authors": {
-            "type": "array",
-            "description": "Parties involved in the creation of the statement.",
-            "minItems": 1,
-            "uniqueItems": true,
-            "items": {
-                "$ref": "#/definitions/author"
-            }
-        },
-        "title": {
-            "type": "string",
-            "description": "The full (human readable) title of the statement."
-        },
-        "problem": { "$ref": "#/definitions/document" },
-        "summary": { "$ref": "#/definitions/document" },
-        "full": { "$ref": "#/definitions/document" }
-    },
-    "required": ["label", "version", "authors", "title", "problem", "full"],
+
 
     "definitions": {
+
+        "statement": {
+            "title": "Statement",
+            "type": "object",
+            "description": "A statement is a document that describes a policy or proposal. It is the root of the comment graph. Each statement object is a single revision of a statement.",
+            "properties": {
+                "label": { "$ref": "#/definitions/label" },
+                "version": { "$ref": "#/definitions/version" },
+                "authors": {
+                    "type": "array",
+                    "description": "Parties involved in the creation of the statement.",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                        "$ref": "#/definitions/author"
+                    }
+                },
+                "title": {
+                    "type": "string",
+                    "description": "The full (human readable) title of the statement."
+                },
+                "problem": { "$ref": "#/definitions/document" },
+                "summary": { "$ref": "#/definitions/document" },
+                "full": { "$ref": "#/definitions/document" }
+            },
+            "required": ["label", "version", "authors", "title", "problem", "full"]
+        },
 
         "label": {
             "title": "Label",
