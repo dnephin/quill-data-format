@@ -1,0 +1,29 @@
+{
+    "label": "what-name-should-be-used-for-the-top-level-document-1",
+    "version": {
+        "semantic": [1, 0, 0],
+        "details": "First official release"
+    },
+    "authors": [
+        {"id": "dnephin", "credit": "First draft"}
+    ],
+    "title": "What name should be used for the top level document?",
+    "problem": [
+        {
+            "id": "problem-intro-0000001",
+            "body": "The problem statement is a document that outlines the problem which is being addressed. It should provide scope to the discussion, and provide context when the decision is reviewed in the future."
+        },
+        {
+            "id": "problem-description-1",
+            "header": "Description of the problem",
+            "body": "We need a name for this document that properly conveys the intentions. The name will influence how these problem statements are written in the future."
+        }
+    ],
+    "full": [
+        {
+            "id": "proposal-intro-000001",
+            "body": "I propose to use the name \"Statement\". It is generic enough to encompass most topics, but specific enough to convey intent."
+        }
+    ]
+
+}

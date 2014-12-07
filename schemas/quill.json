@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Statement",
+    "type": "object",
+    "description": "A statement is a document that describes a policy or proposal. It is the root of the comment graph. Each statement object is a single revision of a statement.",
+    "properties": {
+        "label": { "$ref": "#/definitions/label" },
+        "version": { "$ref": "#/definitions/version" },
+        "authors": {
+            "type": "array",
+            "description": "Parties involved in the creation of the statement.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/author"
+            }
+        },
+        "title": {
+            "type": "string",
+            "description": "The full (human readable) title of the statement."
+        },
+        "problem": { "$ref": "#/definitions/document" },
+        "summary": { "$ref": "#/definitions/document" },
+        "full": { "$ref": "#/definitions/document" }
+    },
+    "required": ["label", "version", "authors", "title", "problem", "full"],
+
+    "definitions": {
+
+        "label": {
+            "title": "Label",
+            "type": "string",
+            "description": "A label is a unique identifier, it is used as part of a URI to retrieve a piece of content.",
+            "minLength": 20, 
+            "maxLength": 80,
+            "pattern": "^[a-z0-9-]+$"
+        },
+        
+        "version": {
+            "title": "Version",
+            "type": "object",
+            "description": "A semantic version for this revision of a piece of content. See http://semver.org/ for a full specification.",
+            "properties": {
+                "semantic": {
+                    "type": "array",
+                    "items": [
+                        {"type": "integer", "minimum": 0},
+                        {"type": "integer", "minimum": 0},
+                        {"type": "integer", "minimum": 0}
+                    ],
+                    "minItems": 3,
+                    "maxItems": 3
+                },
+                "details": {
+                    "type": "string",
+                    "description": "Extra details about this version, for example release notes, or sign-off."
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The date and time when this version was officially released."
+                }
+            },
+            "required": ["semantic"]
+        },
+
+        "author": {
+            "title": "Author",
+            "description": "An entity who has contributed to a piece of content.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "A unique identifier of a person or entity."
+                },
+                "credit": {
+                    "type": "string",
+                    "description": "A description of the work contributed by this party."
+                },
+                "relation": {
+                    "type": "string",
+                    "description": "A short background about how the author relates to the proposal (ex: level of expertise or practical experience with the topic)."
+                }
+            },
+            "required": ["id"]
+        },
+
+        "document": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/section"
+            }
+        },
+
+        "section": {
+            "type": "object",
+            "description": "A section within a document, may have a header, and can be referenced my feedback.",
+            "properties": {
+                "id": {"$ref": "#/definitions/label"},
+                "header": {"type": "string"},
+                "body": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                }
+            },
+            "required": ["id", "body"]
+        }
+
+    }
+}
