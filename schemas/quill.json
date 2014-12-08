@@ -1,7 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
 
-
     "definitions": {
 
         "statement": {
@@ -35,37 +34,48 @@
             "title": "Label",
             "type": "string",
             "description": "A label is a unique identifier, it is used as part of a URI to retrieve a piece of content.",
-            "minLength": 20, 
+            "minLength": 20,
             "maxLength": 80,
             "pattern": "^[a-z0-9-]+$"
         },
-        
+
+        "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "A unique identifier for a piece of content.",
+            "minLength": 4,
+            "maxLength": 32,
+            "pattern": "^[a-z0-9-]+$"
+        },
+
         "version": {
             "title": "Version",
             "type": "object",
             "description": "A semantic version for this revision of a piece of content. See http://semver.org/ for a full specification.",
             "properties": {
-                "semantic": {
-                    "type": "array",
-                    "items": [
-                        {"type": "integer", "minimum": 0},
-                        {"type": "integer", "minimum": 0},
-                        {"type": "integer", "minimum": 0}
-                    ],
-                    "minItems": 3,
-                    "maxItems": 3
-                },
+                "semantic": {"$ref": "#/definitions/semantic-version"},
                 "details": {
                     "type": "string",
                     "description": "Extra details about this version, for example release notes, or sign-off."
                 },
-                "date": {
+                "published-date": {
                     "type": "string",
                     "format": "date-time",
                     "description": "The date and time when this version was officially released."
                 }
             },
             "required": ["semantic"]
+        },
+
+        "semantic-version": {
+            "type": "array",
+            "items": [
+                {"type": "integer", "minimum": 0},
+                {"type": "integer", "minimum": 0},
+                {"type": "integer", "minimum": 0}
+            ],
+            "minItems": 3,
+            "maxItems": 3
         },
 
         "author": {
@@ -101,7 +111,7 @@
             "type": "object",
             "description": "A section within a document, may have a header, and can be referenced my feedback.",
             "properties": {
-                "id": {"$ref": "#/definitions/label"},
+                "id": {"$ref": "#/definitions/id"},
                 "header": {"type": "string"},
                 "body": {
                     "type": "string",
@@ -110,6 +120,78 @@
                 }
             },
             "required": ["id", "body"]
+        },
+
+        "feedback": {
+            "title": "feedback",
+            "type": "object",
+            "description": "A response to a section of a statement or feedback.",
+            "properties": {
+                "id": { "$ref": "#/definitions/id" },
+                "position": {
+                    "type": "string",
+                    "description": "The stance taken by this feedback.",
+                    "enum": [
+                        "support",
+                        "accept",
+                        "challenge",
+                        "oppose",
+                        "disregard"
+                    ]
+                },
+                "author": {
+                    "$ref": "#/definitions/author"
+                },
+                "created": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "last-modified": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "summary": { "$ref": "#/definitions/document" },
+                "full": { "$ref": "#/definitions/document" },
+                "reference": {
+                    "type": "object",
+                    "description": "A link to the section in a document which is being discussed by the feedback.",
+                    "properties": {
+                        "document": {
+                            "type": "string",
+                            "enum": [
+                                "statement-problem",
+                                "statement-summary",
+                                "statement-full",
+                                "feedback-summary",
+                                "feedback-full"
+                            ]
+                        },
+                        "feedback": {
+                            "$ref": "#/definitions/id",
+                            "description": "The id of the feedback item if this feedback is referencing another."
+                        },
+                        "statement": {
+                            "$ref": "#/definitions/id",
+                            "description": "The id of the statement being referenced."
+                        },
+                        "context": {
+                            "type": "string",
+                            "description": "The exact text which is being referenced."
+                        }
+                    },
+                    "required": ["document", "statement"]
+                },
+                "state": {
+                    "type": "string",
+                    "enum": ["new", "addressed", "resolved", "retracted"]
+                },
+                "resolved-by": {"$ref": "#/definitions/semantic-version"}
+            },
+            "required": ["id", "position", "author", "full", "reference"],
+            "dependencies": {
+                "last-modified": ["created"],
+                "state": ["created", "last-modified"]
+            }
         }
 
     }
