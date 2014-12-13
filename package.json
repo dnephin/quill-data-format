@@ -1,0 +1,29 @@
+{
+  "name": "quill-data-format",
+  "version": "0.1.0",
+  "description": "Specification of data format supported by quill",
+  "main": "test.js",
+  "directories": {
+    "example": "examples",
+    "lib": "schemas"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dnephin/quill-data-format.git"
+  },
+  "keywords": [
+    "project-quill",
+    "jsonschema"
+  ],
+  "author": "Daniel Nephin",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/dnephin/quill-data-format/issues"
+  },
+  "devDependencies": {
+    "jsonschema": "~1.0.0"
+  }
+}

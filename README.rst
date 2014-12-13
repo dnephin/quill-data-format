@@ -13,8 +13,4 @@ Run the tests
 
 ::
 
-    apt-get install python-virtualenv
-    virtualenv .venv
-    .venv/bin/pip install jsonschema
-    .venv/bin/python test.py
-
+    npm run test.js
