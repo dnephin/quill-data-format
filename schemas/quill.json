@@ -1,6 +1,35 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
 
+    "title": "Topic",
+    "type": "object",
+    "description": "A topic is composed of a statement and feedback relating to that statement",
+    "properties": {
+        "statement": {
+            "type": "array",
+            "description": "A list of every version of the statement, sorted in reverse chronological order so that the most recent version is first.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/statement"
+            }
+        },
+        "feedback": {
+            "type": "array",
+            "description": "All the feedback relating to every version of the Statement. The order is undefined.",
+            "minItems": 0,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/feedback"
+            }
+        },
+        "current": {
+            "$ref": "#/definitions/statement",
+            "description": "A reference to the latest version of the statement."
+        },
+        "required": ["statement", "feedback"]
+    },
+
     "definitions": {
 
         "statement": {
@@ -123,7 +152,7 @@
         },
 
         "feedback": {
-            "title": "feedback",
+            "title": "Feedback",
             "type": "object",
             "description": "A response to a section of a statement or feedback.",
             "properties": {

@@ -13,4 +13,4 @@ Run the tests
 
 ::
 
-    npm run test.js
+    npm run test
