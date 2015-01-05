@@ -194,16 +194,16 @@
                             "$ref": "#/definitions/id",
                             "description": "The id of the feedback item if this feedback is referencing another."
                         },
-                        "statement": {
+                        "section": {
                             "$ref": "#/definitions/id",
-                            "description": "The id of the statement being referenced."
+                            "description": "The id of the section being referenced."
                         },
                         "context": {
                             "type": "string",
                             "description": "The exact text which is being referenced."
                         }
                     },
-                    "required": ["document", "statement"]
+                    "required": ["document", "section"]
                 },
                 "state": {
                     "type": "string",
