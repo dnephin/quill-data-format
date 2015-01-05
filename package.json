@@ -24,6 +24,7 @@
     "url": "https://github.com/dnephin/quill-data-format/issues"
   },
   "devDependencies": {
-    "jsonschema": "~1.0.0"
+    "jsonschema": "~1.0.0",
+    "cli": "~0.6.5"
   }
 }
