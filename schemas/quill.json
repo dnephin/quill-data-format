@@ -78,12 +78,12 @@
             "type": "object",
             "description": "A semantic version for this revision of a piece of content. See http://semver.org/ for a full specification.",
             "properties": {
-                "semantic": {"$ref": "#/definitions/semantic-version"},
+                "semantic": {"$ref": "#/definitions/semanticVersion"},
                 "details": {
                     "type": "string",
                     "description": "Extra details about this version, for example release notes, or sign-off."
                 },
-                "published-date": {
+                "publishedDate": {
                     "type": "string",
                     "format": "date-time",
                     "description": "The date and time when this version was officially released."
@@ -92,7 +92,7 @@
             "required": ["semantic"]
         },
 
-        "semantic-version": {
+        "semanticVersion": {
             "type": "array",
             "items": [
                 {"type": "integer", "minimum": 0},
@@ -170,7 +170,7 @@
                     "type": "string",
                     "format": "date-time"
                 },
-                "last-modified": {
+                "lastModified": {
                     "type": "string",
                     "format": "date-time"
                 },
@@ -181,12 +181,12 @@
                     "type": "string",
                     "enum": ["new", "addressed", "resolved", "retracted"]
                 },
-                "resolved-by": {"$ref": "#/definitions/semantic-version"}
+                "resolvedBy": {"$ref": "#/definitions/semanticVersion"}
             },
             "required": ["id", "position", "author", "full", "reference"],
             "dependencies": {
-                "last-modified": ["created"],
-                "state": ["created", "last-modified"]
+                "lastModified": ["created"],
+                "state": ["created", "lastModified"]
             }
         },
 
@@ -217,7 +217,7 @@
                     "description": "The exact text which is being referenced."
                 },
                 "version": {
-                    "$ref": "#/definitions/semantic-version",
+                    "$ref": "#/definitions/semanticVersion",
                     "description": "The version of the statement if this feedback is referencing a statement."
                 }
             },
