@@ -176,35 +176,7 @@
                 },
                 "summary": { "$ref": "#/definitions/document" },
                 "full": { "$ref": "#/definitions/document" },
-                "reference": {
-                    "type": "object",
-                    "description": "A link to the section in a document which is being discussed by the feedback.",
-                    "properties": {
-                        "document": {
-                            "type": "string",
-                            "enum": [
-                                "statement-problem",
-                                "statement-summary",
-                                "statement-full",
-                                "feedback-summary",
-                                "feedback-full"
-                            ]
-                        },
-                        "feedback": {
-                            "$ref": "#/definitions/id",
-                            "description": "The id of the feedback item if this feedback is referencing another."
-                        },
-                        "section": {
-                            "$ref": "#/definitions/id",
-                            "description": "The id of the section being referenced."
-                        },
-                        "context": {
-                            "type": "string",
-                            "description": "The exact text which is being referenced."
-                        }
-                    },
-                    "required": ["document", "section"]
-                },
+                "reference": { "$ref": "#/definitions/feedbackReference" },
                 "state": {
                     "type": "string",
                     "enum": ["new", "addressed", "resolved", "retracted"]
@@ -216,6 +188,40 @@
                 "last-modified": ["created"],
                 "state": ["created", "last-modified"]
             }
+        },
+
+        "feedbackReference": {
+            "type": "object",
+            "description": "A link to the section in a document which is being referenced by the feedback.",
+            "properties": {
+                "document": {
+                    "type": "string",
+                    "enum": [
+                        "statement-problem",
+                        "statement-summary",
+                        "statement-full",
+                        "feedback-summary",
+                        "feedback-full"
+                    ]
+                },
+                "feedback": {
+                    "$ref": "#/definitions/id",
+                    "description": "The id of the feedback item if this feedback is referencing another."
+                },
+                "section": {
+                    "$ref": "#/definitions/id",
+                    "description": "The id of the section being referenced."
+                },
+                "context": {
+                    "type": "string",
+                    "description": "The exact text which is being referenced."
+                },
+                "version": {
+                    "$ref": "#/definitions/semantic-version",
+                    "description": "The version of the statement if this feedback is referencing a statement."
+                }
+            },
+            "required": ["document", "section"]
         }
 
     }
